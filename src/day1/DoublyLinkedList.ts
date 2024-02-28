@@ -82,13 +82,9 @@ export default class DoublyLinkedList<T> {
     }
 
     private getNodeAt(idx: number): Node<T> | undefined {
-        let nodeAtPosition;
-        if (this.head) {
-            nodeAtPosition = this.head;
-            for (let i = 0; i < idx; i++) {
-                if (!nodeAtPosition.next) break;
-                nodeAtPosition = nodeAtPosition.next;
-            }
+        let nodeAtPosition = this.head;
+        for (let i = 0; nodeAtPosition && i < idx; i++) {
+            nodeAtPosition = nodeAtPosition.next;
         }
         return nodeAtPosition;
     }
@@ -96,13 +92,16 @@ export default class DoublyLinkedList<T> {
     private removeNode(node: Node<T>) {
         if (node.prev) {
             node.prev.next = node.next;
-        } else {
-            this.head = node.next;
         }
 
         if (node.next) {
             node.next.prev = node.prev;
         }
+
+        if (node === this.head) {
+            this.head = node.next;
+        }
+
         this.length--;
     }
 }
