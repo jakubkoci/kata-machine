@@ -6,10 +6,9 @@ export default function compare(
         return true;
     }
 
-    if (a?.value === b?.value) {
-        const result = compare(a?.left || null, b?.left || null);
-        if (result) {
-            return compare(a?.right || null, b?.right || null);
+    if (a && b) {
+        if (a.value === b.value) {
+            return compare(a.left, b.left) && compare(a.right, b.right);
         }
     }
 
