@@ -5,20 +5,16 @@ export default function bfs(
 ): number[] | null {
     console.log(JSON.stringify(graph));
 
-    const queue: number[] = [];
-    queue.push(source);
+    const queue: number[] = [source];
     const visited: number[] = [];
     const parents: number[] = [];
     let found = false;
+    let node = queue.shift();
 
-    do {
+    while (node !== undefined) {
         console.log(`queue`, queue);
         console.log(`visited`, visited);
-
-        const node = queue.shift();
         console.log(`node`, node);
-
-        if (node === undefined) throw new Error("Dequed node is not defined.");
 
         if (node === needle) {
             found = true;
@@ -36,17 +32,17 @@ export default function bfs(
         }
 
         visited.push(node);
-    } while (queue.length > 0);
+        node = queue.shift();
+    }
 
     if (found) {
-        const path = [];
+        const path = [needle];
         let parent = parents[needle];
-        path.push(needle);
-        do {
-            if (parent !== undefined) path.push(parent);
+        while (parent !== undefined) {
+            path.push(parent);
             parent = parents[parent];
             console.log(parent);
-        } while (parent !== undefined);
+        }
         console.log(`parents`, parents);
         console.log(`path`, path);
         return path.reverse();
