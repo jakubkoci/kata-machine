@@ -30,11 +30,11 @@ export default function dijkstra_list(
     }
   }
 
-  const path = [sink];
-  let parent = parents[sink];
-  while (parent > -1) {
-    path.push(parent);
-    parent = parents[parent];
+  const path = [];
+  let current = sink;
+  while (current > -1) {
+    path.push(current);
+    current = parents[current];
   }
 
   console.log("parents", parents);
