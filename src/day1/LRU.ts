@@ -44,6 +44,7 @@ export default class LRU<K, V> {
             delete this.hashmap[this.hash(this.tail.key)];
             this.tail = this.tail?.prev;
             if (this.tail) this.tail.next = undefined;
+            this.length--;
         }
     }
 
